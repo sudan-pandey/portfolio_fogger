@@ -329,189 +329,269 @@ function minimalValue($value)
 
                     <?php elseif ($type === 'experience'): ?>
 
-                        <div class="minimal-entry">
+                        <?php
+                        $expItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                            <?php if (!empty($content['job_title'])): ?>
+                        <?php foreach ($expItems as $item): ?>
 
-                                <h3 class="minimal-entry-title">
-                                    <?= sanitize($content['job_title']) ?>
-                                </h3>
+                            <div class="minimal-entry">
 
-                            <?php endif; ?>
+                                <?php if (is_array($item)): ?>
 
-                            <div class="minimal-meta">
+                                    <?php if (!empty($item['job_title'])): ?>
 
-                                <?php if (!empty($content['company'])): ?>
-                                    <?= sanitize($content['company']) ?>
-                                <?php endif; ?>
+                                        <h3 class="minimal-entry-title">
+                                            <?= sanitize($item['job_title']) ?>
+                                        </h3>
 
-                                <?php if (
-                                    !empty($content['company']) &&
-                                    !empty($content['duration'])
-                                ): ?>
-                                    ·
-                                <?php endif; ?>
+                                    <?php endif; ?>
 
-                                <?php if (!empty($content['duration'])): ?>
-                                    <?= sanitize($content['duration']) ?>
+                                    <div class="minimal-meta">
+
+                                        <?php if (!empty($item['company'])): ?>
+                                            <?= sanitize($item['company']) ?>
+                                        <?php endif; ?>
+
+                                        <?php if (
+                                            !empty($item['company']) &&
+                                            !empty($item['duration'])
+                                        ): ?>
+                                            ·
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($item['duration'])): ?>
+                                            <?= sanitize($item['duration']) ?>
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                    <?php if (!empty($item['description'])): ?>
+
+                                        <p class="minimal-text">
+                                            <?= sanitize($item['description']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($item['text'])): ?>
+
+                                        <p class="minimal-text">
+                                            <?= sanitize($item['text']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                <?php else: ?>
+
+                                    <p class="minimal-text">
+                                        <?= sanitize($item) ?>
+                                    </p>
+
                                 <?php endif; ?>
 
                             </div>
 
-                            <?php if (!empty($content['description'])): ?>
-
-                                <p class="minimal-text">
-                                    <?= sanitize($content['description']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                            <?php if (!empty($content['text'])): ?>
-
-                                <p class="minimal-text">
-                                    <?= sanitize($content['text']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                        </div>
+                        <?php endforeach; ?>
 
 
                     <?php elseif ($type === 'education'): ?>
 
-                        <div class="minimal-entry">
+                        <?php
+                        $eduItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                            <?php if (!empty($content['degree'])): ?>
+                        <?php foreach ($eduItems as $item): ?>
 
-                                <h3 class="minimal-entry-title">
-                                    <?= sanitize($content['degree']) ?>
-                                </h3>
+                            <div class="minimal-entry">
 
-                            <?php endif; ?>
+                                <?php if (is_array($item)): ?>
 
-                            <div class="minimal-meta">
+                                    <?php if (!empty($item['degree'])): ?>
 
-                                <?php if (!empty($content['institution'])): ?>
-                                    <?= sanitize($content['institution']) ?>
-                                <?php endif; ?>
+                                        <h3 class="minimal-entry-title">
+                                            <?= sanitize($item['degree']) ?>
+                                        </h3>
 
-                                <?php if (
-                                    !empty($content['institution']) &&
-                                    !empty($content['year'])
-                                ): ?>
-                                    ·
-                                <?php endif; ?>
+                                    <?php endif; ?>
 
-                                <?php if (!empty($content['year'])): ?>
-                                    <?= sanitize($content['year']) ?>
+                                    <div class="minimal-meta">
+
+                                        <?php if (!empty($item['institution'])): ?>
+                                            <?= sanitize($item['institution']) ?>
+                                        <?php endif; ?>
+
+                                        <?php if (
+                                            !empty($item['institution']) &&
+                                            !empty($item['year'])
+                                        ): ?>
+                                            ·
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($item['year'])): ?>
+                                            <?= sanitize($item['year']) ?>
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                    <?php if (!empty($item['description'])): ?>
+
+                                        <p class="minimal-text">
+                                            <?= sanitize($item['description']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($item['text'])): ?>
+
+                                        <p class="minimal-text">
+                                            <?= sanitize($item['text']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                <?php else: ?>
+
+                                    <p class="minimal-text">
+                                        <?= sanitize($item) ?>
+                                    </p>
+
                                 <?php endif; ?>
 
                             </div>
 
-                            <?php if (!empty($content['description'])): ?>
-
-                                <p class="minimal-text">
-                                    <?= sanitize($content['description']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                            <?php if (!empty($content['text'])): ?>
-
-                                <p class="minimal-text">
-                                    <?= sanitize($content['text']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                        </div>
+                        <?php endforeach; ?>
 
 
                     <?php elseif ($type === 'projects'): ?>
 
-                        <div class="minimal-entry">
+                        <?php
+                        $projItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                            <?php if (!empty($content['project_name'])): ?>
+                        <?php foreach ($projItems as $item): ?>
 
-                                <h3 class="minimal-entry-title">
-                                    <?= sanitize($content['project_name']) ?>
-                                </h3>
+                            <div class="minimal-entry">
 
-                            <?php endif; ?>
+                                <?php if (is_array($item)): ?>
 
-                            <?php if (!empty($content['technologies'])): ?>
+                                    <?php if (!empty($item['project_name'])): ?>
 
-                                <div class="minimal-meta">
-                                    <?= sanitize($content['technologies']) ?>
-                                </div>
+                                        <h3 class="minimal-entry-title">
+                                            <?= sanitize($item['project_name']) ?>
+                                        </h3>
 
-                            <?php endif; ?>
+                                    <?php endif; ?>
 
-                            <?php if (!empty($content['description'])): ?>
+                                    <?php if (!empty($item['technologies'])): ?>
 
-                                <p class="minimal-text">
-                                    <?= sanitize($content['description']) ?>
-                                </p>
+                                        <div class="minimal-meta">
+                                            <?= sanitize($item['technologies']) ?>
+                                        </div>
 
-                            <?php endif; ?>
+                                    <?php endif; ?>
 
-                            <?php if (!empty($content['link'])): ?>
+                                    <?php if (!empty($item['description'])): ?>
 
-                                <p>
-                                    <a
-                                        href="<?= sanitize($content['link']) ?>"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <?= sanitize($content['link']) ?>
-                                    </a>
-                                </p>
+                                        <p class="minimal-text">
+                                            <?= sanitize($item['description']) ?>
+                                        </p>
 
-                            <?php endif; ?>
+                                    <?php endif; ?>
 
-                        </div>
+                                    <?php if (!empty($item['link'])): ?>
+
+                                        <p>
+                                            <a
+                                                href="<?= sanitize($item['link']) ?>"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <?= sanitize($item['link']) ?>
+                                            </a>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                <?php else: ?>
+
+                                    <p class="minimal-text">
+                                        <?= sanitize($item) ?>
+                                    </p>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                        <?php endforeach; ?>
 
 
                     <?php elseif ($type === 'certifications'): ?>
 
-                        <div class="minimal-entry">
+                        <?php
+                        $certItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                            <?php if (!empty($content['name'])): ?>
+                        <?php foreach ($certItems as $item): ?>
 
-                                <h3 class="minimal-entry-title">
-                                    <?= sanitize($content['name']) ?>
-                                </h3>
+                            <div class="minimal-entry">
 
-                            <?php endif; ?>
+                                <?php if (is_array($item)): ?>
 
-                            <div class="minimal-meta">
+                                    <?php if (!empty($item['name'])): ?>
 
-                                <?= sanitize(
-                                    $content['issuer'] ?? ''
-                                ) ?>
+                                        <h3 class="minimal-entry-title">
+                                            <?= sanitize($item['name']) ?>
+                                        </h3>
 
-                                <?php if (
-                                    !empty($content['issuer']) &&
-                                    !empty($content['year'])
-                                ): ?>
-                                    ·
+                                    <?php endif; ?>
+
+                                    <div class="minimal-meta">
+
+                                        <?= sanitize(
+                                            $item['issuer'] ?? ''
+                                        ) ?>
+
+                                        <?php if (
+                                            !empty($item['issuer']) &&
+                                            !empty($item['year'])
+                                        ): ?>
+                                            ·
+                                        <?php endif; ?>
+
+                                        <?= sanitize(
+                                            $item['year'] ?? ''
+                                        ) ?>
+
+                                    </div>
+
+                                    <?php if (!empty($item['description'])): ?>
+
+                                        <p class="minimal-text">
+                                            <?= sanitize($item['description']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($item['text'])): ?>
+
+                                        <p class="minimal-text">
+                                            <?= sanitize($item['text']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                <?php else: ?>
+
+                                    <p class="minimal-text">
+                                        <?= sanitize($item) ?>
+                                    </p>
+
                                 <?php endif; ?>
-
-                                <?= sanitize(
-                                    $content['year'] ?? ''
-                                ) ?>
 
                             </div>
 
-                            <?php if (!empty($content['text'])): ?>
-
-                                <p class="minimal-text">
-                                    <?= sanitize($content['text']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                        </div>
+                        <?php endforeach; ?>
 
 
                     <?php elseif ($type === 'languages'): ?>
