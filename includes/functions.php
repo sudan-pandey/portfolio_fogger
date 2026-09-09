@@ -982,7 +982,7 @@ function parseResumeText($text)
 
     if (
         preg_match(
-            '/(?:\+?\d{1,3}[\s.-]?)?(?:\(?\d{3,4}\)?[\s.-]?)?\d{3,4}[\s.-]\d{3,4}/',
+            '/(?:\+?\d{1,4}[\s.-]?)?(?:\(?\d{2,4}\)?[\s.-]?)?\d{3,4}[\s.-]?\d{3,4}/',
             $text,
             $matches
         )
@@ -1817,6 +1817,17 @@ function processSectionBuffer(
 
         $currentEntry = [];
 
+        $singleLineSections = [
+            'certifications',
+            'achievements',
+            'languages',
+            'activities',
+            'interests',
+            'contact'
+        ];
+
+        $isSingleLineSection = in_array($section, $singleLineSections, true);
+
 
         foreach (
             $buffer as $line
@@ -1853,6 +1864,44 @@ function processSectionBuffer(
                     $currentEntry = [];
                 }
 
+
+                continue;
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Bullet or single line section entry
+            |--------------------------------------------------------------------------
+            */
+
+            $isBullet = preg_match('/^[\s\-*•●▪■–]/u', $line);
+
+            if ($isBullet) {
+
+                if (!empty($currentEntry)) {
+                    $entries[] = trim(implode("\n", $currentEntry));
+                    $currentEntry = [];
+                }
+
+                $cleanLine = trim(preg_replace('/^[\s\-*•●▪■–]+/u', '', $line));
+
+                if ($cleanLine !== '') {
+                    $currentEntry[] = $cleanLine;
+                }
+
+                continue;
+            }
+
+
+            if ($isSingleLineSection) {
+
+                if (!empty($currentEntry)) {
+                    $entries[] = trim(implode("\n", $currentEntry));
+                    $currentEntry = [];
+                }
+
+                $currentEntry[] = $line;
 
                 continue;
             }
