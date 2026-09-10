@@ -172,18 +172,38 @@ function normalizeSectionContent($content)
 |--------------------------------------------------------------------------
 */
 
-$sStmt = $pdo->prepare("        
+$sStmt = $pdo->prepare("
     SELECT *
     FROM portfolio_sections
     WHERE portfolio_id = ?
     ORDER BY display_order ASC, section_id ASC
-"); 
+");
 
 $sStmt->execute([
     $pId
 ]);
 
 $sections = $sStmt->fetchAll();
+
+
+/*
+|--------------------------------------------------------------------------
+| FETCH RESUME
+|--------------------------------------------------------------------------
+*/
+
+$rStmt = $pdo->prepare("
+    SELECT *
+    FROM resume
+    WHERE portfolio_id = ?
+    LIMIT 1
+");
+
+$rStmt->execute([
+    $pId
+]);
+
+$resume = $rStmt->fetch();
 
 
 /*
@@ -708,6 +728,63 @@ require_once __DIR__ . '/../includes/header.php';
             </button>
 
         </div>
+
+
+        <!-- UPLOADED RESUME DOWNLOAD CARD -->
+
+        <?php if (!empty($resume) && !empty($resume['file_path']) && file_exists($resume['file_path'])): ?>
+
+            <div
+                class="panel-card"
+                style="
+                    margin-bottom: 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    background: #f8fafc;
+                    border-left: 4px solid var(--primary-color);
+                "
+            >
+
+                <div>
+
+                    <strong style="display: block; font-size: 1.05rem; color: var(--text-color);">
+                        📄 Uploaded Resume / CV
+                    </strong>
+
+                    <span style="color: var(--text-secondary); font-size: 0.9rem;">
+                        File: <?= sanitize($resume['file_name']) ?>
+                        (<?= !empty($resume['public_download_enabled']) ? 'Public Download Enabled' : 'Private' ?>)
+                    </span>
+
+                </div>
+
+
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+
+                    <a
+                        href="<?= $baseUrl ?>/uploads/resumes/<?= sanitize(basename($resume['file_path'])) ?>"
+                        download
+                        class="nav-btn btn-primary btn-sm"
+                        style="display: inline-flex; align-items: center; gap: 0.4rem;"
+                    >
+                        📥 Download CV
+                    </a>
+
+                    <a
+                        href="<?= $baseUrl ?>/user/resume.php"
+                        class="nav-btn btn-outline btn-sm"
+                    >
+                        Manage Resume
+                    </a>
+
+                </div>
+
+            </div>
+
+        <?php endif; ?>
 
 
         <!-- SECTION LIST -->
