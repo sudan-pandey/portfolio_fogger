@@ -521,103 +521,45 @@ $sections = $sections ?? [];
 
                     <?php elseif ($sectionType === 'education'): ?>
 
+                        <?php
+                        $eduItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                        <div class="pf-card">
+                        <?php foreach ($eduItems as $item): ?>
 
-                            <?php if (
-                                !empty($content['degree'])
-                            ): ?>
+                            <div class="pf-card">
 
-                                <p>
-                                    <strong>
-                                        Degree:
-                                    </strong>
+                                <?php if (is_array($item)): ?>
 
-                                    <?= sanitize(
-                                        $content['degree']
-                                    ) ?>
-                                </p>
+                                    <?php if (!empty($item['degree'])): ?>
+                                        <p><strong>Degree:</strong> <?= sanitize($item['degree']) ?></p>
+                                    <?php endif; ?>
 
-                            <?php endif; ?>
+                                    <?php if (!empty($item['institution'])): ?>
+                                        <p><strong>Institution:</strong> <?= sanitize($item['institution']) ?></p>
+                                    <?php endif; ?>
 
+                                    <?php if (!empty($item['year'])): ?>
+                                        <p><strong>Year:</strong> <?= sanitize($item['year']) ?></p>
+                                    <?php endif; ?>
 
-                            <?php if (
-                                !empty($content['institution'])
-                            ): ?>
+                                    <?php if (!empty($item['description'])): ?>
+                                        <p style="white-space:pre-line;"><strong>Description:</strong><br><?= sanitize($item['description']) ?></p>
+                                    <?php endif; ?>
 
-                                <p>
-                                    <strong>
-                                        Institution:
-                                    </strong>
+                                    <?php if (!empty($item['text'])): ?>
+                                        <p style="white-space:pre-line; margin:0;"><?= sanitize($item['text']) ?></p>
+                                    <?php endif; ?>
 
-                                    <?= sanitize(
-                                        $content['institution']
-                                    ) ?>
-                                </p>
+                                <?php else: ?>
 
-                            <?php endif; ?>
+                                    <p style="white-space:pre-line; margin:0;"><?= sanitize($item) ?></p>
 
+                                <?php endif; ?>
 
-                            <?php if (
-                                !empty($content['year'])
-                            ): ?>
+                            </div>
 
-                                <p>
-                                    <strong>
-                                        Year:
-                                    </strong>
-
-                                    <?= sanitize(
-                                        $content['year']
-                                    ) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['description'])
-                            ): ?>
-
-                                <p
-                                    style="
-                                        white-space:pre-line;
-                                    "
-                                >
-
-                                    <strong>
-                                        Description:
-                                    </strong>
-
-                                    <br>
-
-                                    <?= sanitize(
-                                        $content['description']
-                                    ) ?>
-
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['text'])
-                            ): ?>
-
-                                <p
-                                    style="
-                                        white-space:pre-line;
-                                        margin:0;
-                                    "
-                                >
-                                    <?= sanitize(
-                                        $content['text']
-                                    ) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                        </div>
+                        <?php endforeach; ?>
 
 
 
@@ -627,103 +569,45 @@ $sections = $sections ?? [];
 
                     <?php elseif ($sectionType === 'experience'): ?>
 
+                        <?php
+                        $expItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                        <div class="pf-card">
+                        <?php foreach ($expItems as $item): ?>
 
-                            <?php if (
-                                !empty($content['job_title'])
-                            ): ?>
+                            <div class="pf-card">
 
-                                <p>
-                                    <strong>
-                                        Job Title:
-                                    </strong>
+                                <?php if (is_array($item)): ?>
 
-                                    <?= sanitize(
-                                        $content['job_title']
-                                    ) ?>
-                                </p>
+                                    <?php if (!empty($item['job_title'])): ?>
+                                        <p><strong>Job Title:</strong> <?= sanitize($item['job_title']) ?></p>
+                                    <?php endif; ?>
 
-                            <?php endif; ?>
+                                    <?php if (!empty($item['company'])): ?>
+                                        <p><strong>Company:</strong> <?= sanitize($item['company']) ?></p>
+                                    <?php endif; ?>
 
+                                    <?php if (!empty($item['duration'])): ?>
+                                        <p><strong>Duration:</strong> <?= sanitize($item['duration']) ?></p>
+                                    <?php endif; ?>
 
-                            <?php if (
-                                !empty($content['company'])
-                            ): ?>
+                                    <?php if (!empty($item['description'])): ?>
+                                        <p style="white-space:pre-line;"><strong>Description:</strong><br><?= sanitize($item['description']) ?></p>
+                                    <?php endif; ?>
 
-                                <p>
-                                    <strong>
-                                        Company:
-                                    </strong>
+                                    <?php if (!empty($item['text'])): ?>
+                                        <p style="white-space:pre-line; margin:0;"><?= sanitize($item['text']) ?></p>
+                                    <?php endif; ?>
 
-                                    <?= sanitize(
-                                        $content['company']
-                                    ) ?>
-                                </p>
+                                <?php else: ?>
 
-                            <?php endif; ?>
+                                    <p style="white-space:pre-line; margin:0;"><?= sanitize($item) ?></p>
 
+                                <?php endif; ?>
 
-                            <?php if (
-                                !empty($content['duration'])
-                            ): ?>
+                            </div>
 
-                                <p>
-                                    <strong>
-                                        Duration:
-                                    </strong>
-
-                                    <?= sanitize(
-                                        $content['duration']
-                                    ) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['description'])
-                            ): ?>
-
-                                <p
-                                    style="
-                                        white-space:pre-line;
-                                    "
-                                >
-
-                                    <strong>
-                                        Description:
-                                    </strong>
-
-                                    <br>
-
-                                    <?= sanitize(
-                                        $content['description']
-                                    ) ?>
-
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['text'])
-                            ): ?>
-
-                                <p
-                                    style="
-                                        white-space:pre-line;
-                                        margin:0;
-                                    "
-                                >
-                                    <?= sanitize(
-                                        $content['text']
-                                    ) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                        </div>
+                        <?php endforeach; ?>
 
 
 
@@ -733,115 +617,45 @@ $sections = $sections ?? [];
 
                     <?php elseif ($sectionType === 'projects'): ?>
 
+                        <?php
+                        $projItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                        <div class="pf-card">
+                        <?php foreach ($projItems as $item): ?>
 
+                            <div class="pf-card">
 
-                            <?php if (
-                                !empty($content['project_name'])
-                            ): ?>
+                                <?php if (is_array($item)): ?>
 
-                                <p>
+                                    <?php if (!empty($item['project_name'])): ?>
+                                        <p><strong>Project:</strong> <?= sanitize($item['project_name']) ?></p>
+                                    <?php endif; ?>
 
-                                    <strong>
-                                        Project:
-                                    </strong>
+                                    <?php if (!empty($item['technologies'])): ?>
+                                        <p><strong>Technologies:</strong> <?= sanitize($item['technologies']) ?></p>
+                                    <?php endif; ?>
 
-                                    <?= sanitize(
-                                        $content['project_name']
-                                    ) ?>
+                                    <?php if (!empty($item['description'])): ?>
+                                        <p style="white-space:pre-line;"><strong>Description:</strong><br><?= sanitize($item['description']) ?></p>
+                                    <?php endif; ?>
 
-                                </p>
+                                    <?php if (!empty($item['link'])): ?>
+                                        <p><strong>Link:</strong> <a href="<?= sanitize($item['link']) ?>" target="_blank" rel="noopener noreferrer">View Project</a></p>
+                                    <?php endif; ?>
 
-                            <?php endif; ?>
+                                    <?php if (!empty($item['text'])): ?>
+                                        <p style="white-space:pre-line; margin:0;"><?= sanitize($item['text']) ?></p>
+                                    <?php endif; ?>
 
+                                <?php else: ?>
 
-                            <?php if (
-                                !empty($content['technologies'])
-                            ): ?>
+                                    <p style="white-space:pre-line; margin:0;"><?= sanitize($item) ?></p>
 
-                                <p>
+                                <?php endif; ?>
 
-                                    <strong>
-                                        Technologies:
-                                    </strong>
+                            </div>
 
-                                    <?= sanitize(
-                                        $content['technologies']
-                                    ) ?>
-
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['description'])
-                            ): ?>
-
-                                <p
-                                    style="
-                                        white-space:pre-line;
-                                    "
-                                >
-
-                                    <strong>
-                                        Description:
-                                    </strong>
-
-                                    <br>
-
-                                    <?= sanitize(
-                                        $content['description']
-                                    ) ?>
-
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['link'])
-                            ): ?>
-
-                                <p>
-
-                                    <strong>
-                                        Link:
-                                    </strong>
-
-                                    <a
-                                        href="<?= sanitize($content['link']) ?>"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        View Project
-                                    </a>
-
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['text'])
-                            ): ?>
-
-                                <p
-                                    style="
-                                        white-space:pre-line;
-                                        margin:0;
-                                    "
-                                >
-                                    <?= sanitize(
-                                        $content['text']
-                                    ) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-
-                        </div>
+                        <?php endforeach; ?>
 
 
 
@@ -851,86 +665,41 @@ $sections = $sections ?? [];
 
                     <?php elseif ($sectionType === 'certifications'): ?>
 
+                        <?php
+                        $certItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                        <div class="pf-card">
+                        <?php foreach ($certItems as $item): ?>
 
+                            <div class="pf-card">
 
-                            <?php if (
-                                !empty($content['name'])
-                            ): ?>
+                                <?php if (is_array($item)): ?>
 
-                                <p>
+                                    <?php if (!empty($item['name'])): ?>
+                                        <p><strong>Certificate:</strong> <?= sanitize($item['name']) ?></p>
+                                    <?php endif; ?>
 
-                                    <strong>
-                                        Certificate:
-                                    </strong>
+                                    <?php if (!empty($item['issuer'])): ?>
+                                        <p><strong>Issued By:</strong> <?= sanitize($item['issuer']) ?></p>
+                                    <?php endif; ?>
 
-                                    <?= sanitize(
-                                        $content['name']
-                                    ) ?>
+                                    <?php if (!empty($item['year'])): ?>
+                                        <p><strong>Year:</strong> <?= sanitize($item['year']) ?></p>
+                                    <?php endif; ?>
 
-                                </p>
+                                    <?php if (!empty($item['text'])): ?>
+                                        <p style="white-space:pre-line; margin:0;"><?= sanitize($item['text']) ?></p>
+                                    <?php endif; ?>
 
-                            <?php endif; ?>
+                                <?php else: ?>
 
+                                    <p style="white-space:pre-line; margin:0;"><?= sanitize($item) ?></p>
 
-                            <?php if (
-                                !empty($content['issuer'])
-                            ): ?>
+                                <?php endif; ?>
 
-                                <p>
+                            </div>
 
-                                    <strong>
-                                        Issued By:
-                                    </strong>
-
-                                    <?= sanitize(
-                                        $content['issuer']
-                                    ) ?>
-
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['year'])
-                            ): ?>
-
-                                <p>
-
-                                    <strong>
-                                        Year:
-                                    </strong>
-
-                                    <?= sanitize(
-                                        $content['year']
-                                    ) ?>
-
-                                </p>
-
-                            <?php endif; ?>
-
-
-                            <?php if (
-                                !empty($content['text'])
-                            ): ?>
-
-                                <p
-                                    style="
-                                        white-space:pre-line;
-                                        margin:0;
-                                    "
-                                >
-                                    <?= sanitize(
-                                        $content['text']
-                                    ) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-
-                        </div>
+                        <?php endforeach; ?>
 
 
 

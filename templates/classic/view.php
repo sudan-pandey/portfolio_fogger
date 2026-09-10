@@ -314,18 +314,26 @@ function classicValue($value)
 
         margin-bottom: 20px;
 
-        padding: 4px 24px 20px;
+        padding: 16px 24px;
 
         background: #fffdf9;
 
         border: 1px solid #e0dbd2;
 
-        border-left: 1px solid #e0dbd2;
+        border-radius: 4px;
 
-        border-radius: 3px;
+        text-align: left;
 
         box-shadow:
             0 5px 18px rgba(50, 43, 32, 0.035);
+
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .tpl-classic .classic-entry:hover {
+        transform: translateY(-3px);
+        border-color: var(--classic-accent);
+        box-shadow: 0 10px 25px rgba(50, 43, 32, 0.08);
     }
 
     .tpl-classic .classic-entry:last-child {
@@ -677,6 +685,24 @@ function classicValue($value)
 
                 <?php endif; ?>
 
+                <?php if (
+                    !empty($resume) &&
+                    !empty($resume['public_download_enabled']) &&
+                    !empty($resume['file_path'])
+                ): ?>
+
+                    <span>
+                        <a
+                            href="/PortfolioForge-Clean/uploads/resumes/<?= sanitize(basename($resume['file_path'])) ?>"
+                            download
+                            style="font-weight: 600; color: var(--classic-accent);"
+                        >
+                            📥 Download CV
+                        </a>
+                    </span>
+
+                <?php endif; ?>
+
             </div>
 
         </header>
@@ -757,198 +783,278 @@ function classicValue($value)
 
                     <?php elseif ($type === 'education'): ?>
 
-                        <div class="classic-entry">
+                        <?php
+                        $eduItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                            <?php if (!empty($content['degree'])): ?>
+                        <?php foreach ($eduItems as $item): ?>
 
-                                <h3 class="classic-entry-title">
-                                    <?= sanitize($content['degree']) ?>
-                                </h3>
+                            <div class="classic-entry">
 
-                            <?php endif; ?>
+                                <?php if (is_array($item)): ?>
 
-                            <div class="classic-meta">
+                                    <?php if (!empty($item['degree'])): ?>
 
-                                <?php if (!empty($content['institution'])): ?>
-                                    <?= sanitize($content['institution']) ?>
-                                <?php endif; ?>
+                                        <h3 class="classic-entry-title">
+                                            <?= sanitize($item['degree']) ?>
+                                        </h3>
 
-                                <?php if (
-                                    !empty($content['institution']) &&
-                                    !empty($content['year'])
-                                ): ?>
-                                    |
-                                <?php endif; ?>
+                                    <?php endif; ?>
 
-                                <?php if (!empty($content['year'])): ?>
-                                    <?= sanitize($content['year']) ?>
+                                    <div class="classic-meta">
+
+                                        <?php if (!empty($item['institution'])): ?>
+                                            <?= sanitize($item['institution']) ?>
+                                        <?php endif; ?>
+
+                                        <?php if (
+                                            !empty($item['institution']) &&
+                                            !empty($item['year'])
+                                        ): ?>
+                                            |
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($item['year'])): ?>
+                                            <?= sanitize($item['year']) ?>
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                    <?php if (!empty($item['description'])): ?>
+
+                                        <p class="classic-description">
+                                            <?= sanitize($item['description']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($item['text'])): ?>
+
+                                        <p class="classic-description">
+                                            <?= sanitize($item['text']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                <?php else: ?>
+
+                                    <p class="classic-description">
+                                        <?= sanitize($item) ?>
+                                    </p>
+
                                 <?php endif; ?>
 
                             </div>
 
-                            <?php if (!empty($content['description'])): ?>
-
-                                <p class="classic-description">
-                                    <?= sanitize($content['description']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                            <?php if (!empty($content['text'])): ?>
-
-                                <p class="classic-description">
-                                    <?= sanitize($content['text']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                        </div>
+                        <?php endforeach; ?>
 
 
                     <?php elseif ($type === 'experience'): ?>
 
-                        <div class="classic-entry">
+                        <?php
+                        $expItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                            <?php if (!empty($content['job_title'])): ?>
+                        <?php foreach ($expItems as $item): ?>
 
-                                <h3 class="classic-entry-title">
-                                    <?= sanitize($content['job_title']) ?>
-                                </h3>
+                            <div class="classic-entry">
 
-                            <?php endif; ?>
+                                <?php if (is_array($item)): ?>
 
-                            <div class="classic-meta">
+                                    <?php if (!empty($item['job_title'])): ?>
 
-                                <?php if (!empty($content['company'])): ?>
-                                    <?= sanitize($content['company']) ?>
-                                <?php endif; ?>
+                                        <h3 class="classic-entry-title">
+                                            <?= sanitize($item['job_title']) ?>
+                                        </h3>
 
-                                <?php if (
-                                    !empty($content['company']) &&
-                                    !empty($content['duration'])
-                                ): ?>
-                                    |
-                                <?php endif; ?>
+                                    <?php endif; ?>
 
-                                <?php if (!empty($content['duration'])): ?>
-                                    <?= sanitize($content['duration']) ?>
+                                    <div class="classic-meta">
+
+                                        <?php if (!empty($item['company'])): ?>
+                                            <?= sanitize($item['company']) ?>
+                                        <?php endif; ?>
+
+                                        <?php if (
+                                            !empty($item['company']) &&
+                                            !empty($item['duration'])
+                                        ): ?>
+                                            |
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($item['duration'])): ?>
+                                            <?= sanitize($item['duration']) ?>
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                    <?php if (!empty($item['description'])): ?>
+
+                                        <p class="classic-description">
+                                            <?= sanitize($item['description']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($item['text'])): ?>
+
+                                        <p class="classic-description">
+                                            <?= sanitize($item['text']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                <?php else: ?>
+
+                                    <p class="classic-description">
+                                        <?= sanitize($item) ?>
+                                    </p>
+
                                 <?php endif; ?>
 
                             </div>
 
-                            <?php if (!empty($content['description'])): ?>
-
-                                <p class="classic-description">
-                                    <?= sanitize($content['description']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                            <?php if (!empty($content['text'])): ?>
-
-                                <p class="classic-description">
-                                    <?= sanitize($content['text']) ?>
-                                </p>
-
-                            <?php endif; ?>
-
-                        </div>
+                        <?php endforeach; ?>
 
 
                     <?php elseif ($type === 'projects'): ?>
 
-                        <div class="classic-entry">
+                        <?php
+                        $projItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
 
-                            <?php if (!empty($content['project_name'])): ?>
+                        <?php foreach ($projItems as $item): ?>
 
-                                <h3 class="classic-entry-title">
-                                    <?= sanitize($content['project_name']) ?>
-                                </h3>
+                            <div class="classic-entry">
 
-                            <?php endif; ?>
+                                <?php if (is_array($item)): ?>
 
-                            <?php if (!empty($content['technologies'])): ?>
+                                    <?php if (!empty($item['project_name'])): ?>
 
-                                <div class="classic-meta">
-                                    Technologies:
-                                    <?= sanitize($content['technologies']) ?>
-                                </div>
+                                        <h3 class="classic-entry-title">
+                                            <?= sanitize($item['project_name']) ?>
+                                        </h3>
 
-                            <?php endif; ?>
+                                    <?php endif; ?>
 
-                            <?php if (!empty($content['description'])): ?>
+                                    <?php if (!empty($item['technologies'])): ?>
 
-                                <p class="classic-description">
-                                    <?= sanitize($content['description']) ?>
-                                </p>
+                                        <div class="classic-meta">
+                                            Technologies:
+                                            <?= sanitize($item['technologies']) ?>
+                                        </div>
 
-                            <?php endif; ?>
+                                    <?php endif; ?>
 
-                            <?php if (!empty($content['link'])): ?>
+                                    <?php if (!empty($item['description'])): ?>
 
-                                <p>
-                                    <span class="classic-label">Project:</span>
-                                    <a
-                                        href="<?= sanitize($content['link']) ?>"
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        <?= sanitize($content['link']) ?>
-                                    </a>
-                                </p>
+                                        <p class="classic-description">
+                                            <?= sanitize($item['description']) ?>
+                                        </p>
 
-                            <?php endif; ?>
+                                    <?php endif; ?>
 
-                            <?php if (!empty($content['text'])): ?>
+                                    <?php if (!empty($item['link'])): ?>
 
-                                <p class="classic-description">
-                                    <?= sanitize($content['text']) ?>
-                                </p>
+                                        <p>
+                                            <span class="classic-label">Project:</span>
+                                            <a
+                                                href="<?= sanitize($item['link']) ?>"
+                                                target="_blank"
+                                                rel="noopener noreferrer">
+                                                <?= sanitize($item['link']) ?>
+                                            </a>
+                                        </p>
 
-                            <?php endif; ?>
+                                    <?php endif; ?>
 
-                        </div>
+                                    <?php if (!empty($item['text'])): ?>
 
+                                        <p class="classic-description">
+                                            <?= sanitize($item['text']) ?>
+                                        </p>
 
-                    <?php elseif ($type === 'certifications'): ?>
+                                    <?php endif; ?>
 
-                        <div class="classic-entry">
+                                <?php else: ?>
 
-                            <?php if (!empty($content['name'])): ?>
+                                    <p class="classic-description">
+                                        <?= sanitize($item) ?>
+                                    </p>
 
-                                <h3 class="classic-entry-title">
-                                    <?= sanitize($content['name']) ?>
-                                </h3>
-
-                            <?php endif; ?>
-
-                            <div class="classic-meta">
-
-                                <?php if (!empty($content['issuer'])): ?>
-                                    <?= sanitize($content['issuer']) ?>
-                                <?php endif; ?>
-
-                                <?php if (
-                                    !empty($content['issuer']) &&
-                                    !empty($content['year'])
-                                ): ?>
-                                    |
-                                <?php endif; ?>
-
-                                <?php if (!empty($content['year'])): ?>
-                                    <?= sanitize($content['year']) ?>
                                 <?php endif; ?>
 
                             </div>
 
-                            <?php if (!empty($content['text'])): ?>
+                        <?php endforeach; ?>
 
-                                <p class="classic-description">
-                                    <?= sanitize($content['text']) ?>
-                                </p>
 
-                            <?php endif; ?>
+                    <?php elseif ($type === 'certifications'): ?>
 
-                        </div>
+                        <?php
+                        $certItems = isset($content[0]) && is_array($content) ? $content : [$content];
+                        ?>
+
+                        <?php foreach ($certItems as $item): ?>
+
+                            <div class="classic-entry">
+
+                                <?php if (is_array($item)): ?>
+
+                                    <?php if (!empty($item['name'])): ?>
+
+                                        <h3 class="classic-entry-title">
+                                            <?= sanitize($item['name']) ?>
+                                        </h3>
+
+                                    <?php endif; ?>
+
+                                    <div class="classic-meta">
+
+                                        <?php if (!empty($item['issuer'])): ?>
+                                            <?= sanitize($item['issuer']) ?>
+                                        <?php endif; ?>
+
+                                        <?php if (
+                                            !empty($item['issuer']) &&
+                                            !empty($item['year'])
+                                        ): ?>
+                                            |
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($item['year'])): ?>
+                                            <?= sanitize($item['year']) ?>
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                    <?php if (!empty($item['description'])): ?>
+
+                                        <p class="classic-description">
+                                            <?= sanitize($item['description']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($item['text'])): ?>
+
+                                        <p class="classic-description">
+                                            <?= sanitize($item['text']) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                <?php else: ?>
+
+                                    <p class="classic-description">
+                                        <?= sanitize($item) ?>
+                                    </p>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                        <?php endforeach; ?>
 
 
                     <?php elseif ($type === 'languages'): ?>
