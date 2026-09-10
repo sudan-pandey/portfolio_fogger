@@ -102,6 +102,19 @@ function minimalValue($value)
 
 .tpl-minimal .minimal-entry {
     margin-bottom: 23px;
+    padding: 16px 20px;
+    background: #fafafa;
+    border-radius: 6px;
+    border: 1px solid #f0f0f0;
+    text-align: left;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.tpl-minimal .minimal-entry:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+    border-color: var(--minimal-accent);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 .tpl-minimal .minimal-entry:last-child {

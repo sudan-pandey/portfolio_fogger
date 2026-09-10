@@ -120,6 +120,33 @@ assertTest(str_contains($minimalOutput, 'Certified Web Developer (2023)'), 'Mini
 assertTest(str_contains($minimalOutput, 'Frontend Developer'), 'Minimal template renders experience job title');
 assertTest(str_contains($minimalOutput, 'Download CV / Resume'), 'Minimal template renders CV download button');
 
+ob_start();
+$sections = $testSections;
+include __DIR__ . '/../templates/classic/view.php';
+$classicOutput = ob_get_clean();
+
+assertTest(str_contains($classicOutput, 'Certified Web Developer (2023)'), 'Classic template renders certification item 1');
+assertTest(str_contains($classicOutput, 'Frontend Developer'), 'Classic template renders experience job title');
+assertTest(str_contains($classicOutput, 'Download CV'), 'Classic template renders CV download button');
+
+ob_start();
+$sections = $testSections;
+include __DIR__ . '/../templates/modern/view.php';
+$modernOutput = ob_get_clean();
+
+assertTest(str_contains($modernOutput, 'Certified Web Developer (2023)'), 'Modern template renders certification item 1');
+assertTest(str_contains($modernOutput, 'Frontend Developer'), 'Modern template renders experience job title');
+assertTest(str_contains($modernOutput, 'Download Resume'), 'Modern template renders CV download button');
+
+ob_start();
+$sections = $testSections;
+include __DIR__ . '/../templates/professional/view.php';
+$profOutput = ob_get_clean();
+
+assertTest(str_contains($profOutput, 'Certified Web Developer (2023)'), 'Professional template renders certification item 1');
+assertTest(str_contains($profOutput, 'Frontend Developer'), 'Professional template renders experience job title');
+assertTest(str_contains($profOutput, 'Download Resume'), 'Professional template renders CV download button');
+
 echo "\n=== SUMMARY ===\n";
 echo "Passed: {$passed}\n";
 echo "Failed: {$failed}\n\n";
