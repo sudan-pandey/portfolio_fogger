@@ -89,11 +89,16 @@ $portfolio = [
     'accent_color' => '#6c5ce7',
     'font_family' => 'Poppins, sans-serif',
     'show_profile_image' => 0,
+    'show_email' => 1,
     'title' => 'Software Engineer Portfolio'
 ];
 $user = [
     'full_name' => 'John Smith',
     'email' => 'john.smith@example.com'
+];
+$resume = [
+    'public_download_enabled' => 1,
+    'file_path' => '/uploads/resumes/resume_123.docx'
 ];
 
 ob_start();
@@ -104,6 +109,7 @@ $creativeOutput = ob_get_clean();
 assertTest(str_contains($creativeOutput, 'Certified Web Developer (2023)'), 'Creative template renders certification item 1');
 assertTest(str_contains($creativeOutput, 'MySQL Specialist (2024)'), 'Creative template renders certification item 2');
 assertTest(str_contains($creativeOutput, 'Frontend Developer'), 'Creative template renders experience job title');
+assertTest(str_contains($creativeOutput, 'Download Resume / CV'), 'Creative template renders CV download button');
 
 ob_start();
 $sections = $testSections;
@@ -112,6 +118,7 @@ $minimalOutput = ob_get_clean();
 
 assertTest(str_contains($minimalOutput, 'Certified Web Developer (2023)'), 'Minimal template renders certification item 1');
 assertTest(str_contains($minimalOutput, 'Frontend Developer'), 'Minimal template renders experience job title');
+assertTest(str_contains($minimalOutput, 'Download CV / Resume'), 'Minimal template renders CV download button');
 
 echo "\n=== SUMMARY ===\n";
 echo "Passed: {$passed}\n";

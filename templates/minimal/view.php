@@ -259,6 +259,22 @@ function minimalValue($value)
 
                 <?php endif; ?>
 
+                <?php if (
+                    !empty($resume) &&
+                    !empty($resume['public_download_enabled']) &&
+                    !empty($resume['file_path'])
+                ): ?>
+
+                    <span style="display: block; margin-top: 0.6rem;">
+                        <a href="/PortfolioForge-Clean/uploads/resumes/<?= sanitize(basename($resume['file_path'])) ?>"
+                            download
+                            style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.9rem; border: 1.5px solid var(--minimal-accent); color: var(--minimal-accent); border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: background-color 0.2s;">
+                            📄 Download CV / Resume
+                        </a>
+                    </span>
+
+                <?php endif; ?>
+
             </div>
 
         </header>

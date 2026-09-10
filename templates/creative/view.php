@@ -342,7 +342,7 @@
     line-height: 1.9;
 
     white-space: pre-line;
-    
+
 }
 
 
@@ -700,11 +700,12 @@
                             <span><?= sanitize($user['email']) ?></span>
                         <?php endif; ?>
 
-                        <?php if (!empty($resume) && !empty($resume['public_download_enabled'])): ?>
-                            <span>
+                        <?php if (!empty($resume) && !empty($resume['public_download_enabled']) && !empty($resume['file_path'])): ?>
+                            <span style="margin-top: 0.5rem; display: inline-block;">
                                 <a href="/PortfolioForge-Clean/uploads/resumes/<?= sanitize(basename($resume['file_path'])) ?>"
-                                    download>
-                                    Download Resume
+                                    download
+                                    style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; background: var(--creative-accent); color: #ffffff; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: opacity 0.2s;">
+                                    📥 Download Resume / CV
                                 </a>
                             </span>
                         <?php endif; ?>
